@@ -21,7 +21,7 @@ function Home({ pizza }) {
             </div>
             <h2 className="content__title">Все пиццы</h2>
             <div className="content__items">
-                {pizza.map((item) => {
+                {pizza?.map((item) => {
                     return (
                         <PizzaBlock
                             key={item.imageUrl}
