@@ -1,7 +1,17 @@
 import React from 'react'
 import { Categories, SortPopup, PizzaBlock } from '../componentParts';
+import { useSelector } from 'react-redux';
 
-function Home({ pizza }) {
+function Home() {
+
+    const { items } = useSelector(({ pizzas }) => {
+        return ({
+            items: pizzas.items,
+
+        })
+    });
+
+
     return (
         <div className="container">
             <div className="content__top">
@@ -21,7 +31,7 @@ function Home({ pizza }) {
             </div>
             <h2 className="content__title">Все пиццы</h2>
             <div className="content__items">
-                {pizza?.map((item) => {
+                {items?.map((item) => {
                     return (
                         <PizzaBlock
                             key={item.imageUrl}
