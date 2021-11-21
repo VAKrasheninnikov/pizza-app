@@ -8,12 +8,12 @@ import { fetchPizzas } from './redux/actions/pizzas'
 
 
 function App() {
-
+  
   const dispatch = useDispatch();
-
+  
   React.useEffect(()=>{
-    dispatch(fetchPizzas())
-  })
+    console.log(dispatch(fetchPizzas()))
+  }, [])
 
 
   return (
