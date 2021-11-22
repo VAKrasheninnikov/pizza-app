@@ -53,9 +53,10 @@ function Home() {
                             rating={item.rating}
                             sizes={item.sizes}
                             types={item.types}
+                            isLoading={true}
                         />
                     )
-                }) : Array(10).fill(<PizzaLoadingBlock />)}
+                }) : Array(12).fill(<PizzaLoadingBlock />)}
             </div>
         </div>
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import LoadingBlock from './LoadingBlock'
 
 
 function PizzaBlock({ url, name, price, sizes, types }) {
@@ -83,6 +84,7 @@ PizzaBlock.propTypes = {
     price: PropTypes.number,
     types: PropTypes.arrayOf(PropTypes.number),
     sizes: PropTypes.arrayOf(PropTypes.number),
+    isLoading: PropTypes.bool
 }
 
 PizzaBlock.defaultProps = {
@@ -90,6 +92,7 @@ PizzaBlock.defaultProps = {
     price: 0,
     types: [],
     sizes: [],
+    isLoading:false
 }
 
 export default PizzaBlock
