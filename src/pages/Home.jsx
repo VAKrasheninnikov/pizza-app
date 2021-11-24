@@ -18,9 +18,11 @@ function Home() {
     
     const items = useSelector(({ pizzas }) => pizzas.items);
     const isLoaded = useSelector(({ pizzas }) => pizzas.isLoaded);
+    const {category, sortBy} = useSelector(({ filter }) => filter);
+    console.log(category, sortBy)
     React.useEffect(()=>{
         dispatch(fetchPizzas());
-  }, [])
+  }, [category])
 
 
     const onSelectCategory= React.useCallback((ind)=>{
@@ -56,7 +58,7 @@ function Home() {
                             isLoading={true}
                         />
                     )
-                }) : Array(12).fill(<PizzaLoadingBlock />)}
+                }) : Array(12).fill(0).map((_,index)=><PizzaLoadingBlock key={index}/>)}
             </div>
         </div>
 
