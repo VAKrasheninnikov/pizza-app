@@ -2,7 +2,8 @@ import React from 'react'
 import { Categories, SortPopup, PizzaBlock, PizzaLoadingBlock } from '../componentParts';
 import { useSelector, useDispatch } from 'react-redux';
 import { setCategory, setSortBy } from '../redux/actions/filters';
-import { fetchPizzas } from '../redux/actions/pizzas'
+import { fetchPizzas, setPizzas } from '../redux/actions/pizzas'
+import axios from 'axios';
 
 const categoryNames = [
     'Мясные',
@@ -21,8 +22,9 @@ function Home() {
     const { category, sortBy } = useSelector(({ filter }) => filter);
     
     React.useEffect(() => {
-        dispatch(fetchPizzas());
-    }, [category])
+
+        dispatch(fetchPizzas(sortBy, category));
+    }, [category,sortBy])
 
 
     const onSelectCategory = React.useCallback((ind) => {
@@ -41,11 +43,11 @@ function Home() {
                     onClickCategory={onSelectCategory}
                     items={categoryNames} />
                 <SortPopup items={[
-                    { name: 'популярности', type: 'popular' },
-                    { name: 'цене', type: 'price' },
-                    { name: 'алфавиту', type: 'alphabet' }
+                    { name: 'популярности', type: 'popular', order: 'desc' },
+                    { name: 'цене', type: 'price', order: 'desc' },
+                    { name: 'алфавиту', type: 'name', order: 'asc' }
                 ]}
-                activeSortType={sortBy}
+                activeSortType={sortBy.type}
                 onSelectSort={onSelectSort} />
             </div>
             <h2 className="content__title">Все пиццы</h2>

@@ -6,8 +6,7 @@ const SortPopup = React.memo(function SortPopup({ items, onSelectSort, activeSor
   const [visiblePopUp, setVisiblePopUp] = React.useState(false)
   
   const activeLabel = items.find((obj)=>obj.type===activeSortType).name;
-console.log(items)
-console.log(activeSortType)
+
   const sortRef = React.useRef(null);
 
 
@@ -56,7 +55,7 @@ console.log(activeSortType)
           <ul>
             {items?.map((item, index) => <li
               key={`${item.type}_${index}`}
-              onClick={() => toggleSortType(item.type)}
+              onClick={() => toggleSortType(item)}
               className={activeSortType === item.type ? 'active' : ''} >
               {item.name}
             </li>)}
