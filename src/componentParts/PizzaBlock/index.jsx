@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import LoadingBlock from './LoadingBlock'
 
 
 function PizzaBlock({ url, name, price, sizes, types }) {

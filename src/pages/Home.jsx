@@ -2,8 +2,9 @@ import React from 'react'
 import { Categories, SortPopup, PizzaBlock, PizzaLoadingBlock } from '../componentParts';
 import { useSelector, useDispatch } from 'react-redux';
 import { setCategory, setSortBy } from '../redux/actions/filters';
-import { fetchPizzas, setPizzas } from '../redux/actions/pizzas'
-import axios from 'axios';
+import { fetchPizzas } from '../redux/actions/pizzas'
+
+
 
 const categoryNames = [
     'Мясные',
@@ -33,7 +34,7 @@ function Home() {
 
     const onSelectSort = React.useCallback((type)=>{
         dispatch(setSortBy(type))
-    })
+    }, [dispatch])
 
     return (
         <div className="container">

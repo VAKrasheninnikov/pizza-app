@@ -19,11 +19,12 @@ const SortPopup = React.memo(function SortPopup({ items, onSelectSort, activeSor
     setVisiblePopUp(false)
   }
 
-  const handleOutsideClick = (event) => {
-    if (!event.path.includes(sortRef.current)) {
-      setVisiblePopUp(false)
+  const handleOutsideClick = (e) => {
+    const path = e.path || (e.composedPath && e.composedPath());
+    if (!path.includes(sortRef.current)) {
+        setVisiblePopUp(false);
     }
-  };
+};
 
   React.useEffect(() => {
     document.body.addEventListener('click', handleOutsideClick)
