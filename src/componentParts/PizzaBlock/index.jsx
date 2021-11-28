@@ -1,22 +1,34 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import Button from '../Button';
 
 
-function PizzaBlock({ url, name, price, sizes, types }) {
+function PizzaBlock({ id, url, name, price, sizes, types, onAddToCart  }) {
     
     const [activeType, setActiveType] = React.useState(types[0])
     const availableNames = ['тонкое', 'традиционное']
-
-    const [activeSize, setActiveSize] = React.useState(sizes[0])
+    const [activeSize, setActiveSize] = React.useState(0)
     const availableSizes = [26, 30, 40]
-
+    
     const onSelectType = (index) => {
         setActiveType(index)
     }
 
     const onSelectSize = (index) => {
         setActiveSize(index)
+    }
+
+    const onAddPizza = () => {
+        const obj = {
+            id,
+            name,
+            url,
+            price,
+            size: availableSizes[activeSize],
+            type: availableNames[activeType]
+        }
+        onAddToCart(obj)
     }
 
  
@@ -55,7 +67,7 @@ function PizzaBlock({ url, name, price, sizes, types }) {
             </div>
             <div className="pizza-block__bottom">
                 <div className="pizza-block__price">от {price} р.</div>
-                <div className="button button--outline button--add">
+                <Button onAdd={onAddPizza} className="button--add" outline>
                     <svg
                         width="12"
                         height="12"
@@ -70,7 +82,7 @@ function PizzaBlock({ url, name, price, sizes, types }) {
                     </svg>
                     <span>Добавить</span>
                     <i>2</i>
-                </div>
+                </Button>
             </div>
         </div>
 
@@ -83,7 +95,8 @@ PizzaBlock.propTypes = {
     price: PropTypes.number,
     types: PropTypes.arrayOf(PropTypes.number),
     sizes: PropTypes.arrayOf(PropTypes.number),
-    isLoading: PropTypes.bool
+    isLoading: PropTypes.bool,
+    onAddToCart: PropTypes.func
 }
 
 PizzaBlock.defaultProps = {
