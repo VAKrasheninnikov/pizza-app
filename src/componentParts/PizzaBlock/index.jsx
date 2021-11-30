@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import Button from '../Button';
 
 
-function PizzaBlock({ id, url, name, price, sizes, types, onAddToCart  }) {
+function PizzaBlock({ id, url, name, price, sizes, types, onAddToCart, pizzaCounter  }) {
     
     const [activeType, setActiveType] = React.useState(types[0])
     const availableNames = ['тонкое', 'традиционное']
@@ -31,7 +31,6 @@ function PizzaBlock({ id, url, name, price, sizes, types, onAddToCart  }) {
         onAddToCart(obj)
     }
 
- 
 
     return (
         <div className="pizza-block">
@@ -81,7 +80,7 @@ function PizzaBlock({ id, url, name, price, sizes, types, onAddToCart  }) {
                         />
                     </svg>
                     <span>Добавить</span>
-                    <i>2</i>
+                    {pizzaCounter? <i>{pizzaCounter}</i> : null}
                 </Button>
             </div>
         </div>
@@ -96,7 +95,8 @@ PizzaBlock.propTypes = {
     types: PropTypes.arrayOf(PropTypes.number),
     sizes: PropTypes.arrayOf(PropTypes.number),
     isLoading: PropTypes.bool,
-    onAddToCart: PropTypes.func
+    onAddToCart: PropTypes.func,
+    pizzaCounter: PropTypes.number
 }
 
 PizzaBlock.defaultProps = {
