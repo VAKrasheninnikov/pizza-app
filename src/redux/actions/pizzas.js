@@ -6,15 +6,15 @@ export const setLoaded = value => ({
 })
 
 export const fetchPizzas = (sortBy, category) => (dispatch) => {
-  console.log(category)
+  
   dispatch(setLoaded(false))
   if (category===null) {
-    axios.get(`http://localhost:3001/pizzas?_sort=${sortBy.type}&_order=${sortBy.order}`).then(({ data }) => {
+    axios.get(`/pizzas?_sort=${sortBy.type}&_order=${sortBy.order}`).then(({ data }) => {
       dispatch(setPizzas(data))
     })
   }
   else {
-    axios.get(`http://localhost:3001/pizzas?category=${category}&_sort=${sortBy.type}&_order=${sortBy.order}`).then(({ data }) => {
+    axios.get(`/pizzas?category=${category}&_sort=${sortBy.type}&_order=${sortBy.order}`).then(({ data }) => {
       dispatch(setPizzas(data))
     })
   }

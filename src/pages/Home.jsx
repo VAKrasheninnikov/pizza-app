@@ -23,7 +23,7 @@ function Home() {
     const cart = useSelector(({ cart }) => cart.items);
     const isLoaded = useSelector(({ pizzas }) => pizzas.isLoaded);
     const { category, sortBy } = useSelector(({ filter }) => filter);
-    console.log(cart)
+    console.log(Object.keys(cart))
     React.useEffect(() => {
 
         dispatch(fetchPizzas(sortBy, category));
@@ -73,7 +73,7 @@ function Home() {
                             types={item.types}
                             isLoading={true}
                             onAddToCart={addPizzas}
-                            pizzaCounter = {cart[item.id]?.length}
+                            pizzaCounter = {cart[item.id]?.items.length}
                         />
                     )
                 }) : Array(12).fill(0).map((_, index) => <PizzaLoadingBlock key={index} />)}
