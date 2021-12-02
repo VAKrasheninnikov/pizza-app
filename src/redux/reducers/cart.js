@@ -19,14 +19,13 @@ const cart = (state = initialState, action) => {
                 }
             }
 
-
-            const allPizzas = Object.values(newItems).map((el) => el.items).flat().length
+            const totalCount = Object.keys(newItems).reduce((sum,key)=>newItems[key].items.length+sum,0)
             const allPrices = Object.values(newItems).map((el) => el.items).flat().reduce((sum, item) => item.price + sum, 0)
 
             return {
                 ...state,
                 items: newItems,
-                totalCount: allPizzas,
+                totalCount,
                 totalPrice: allPrices
 
             };
@@ -36,6 +35,17 @@ const cart = (state = initialState, action) => {
                 items: {},
                 totalPrice: 0,
                 totalCount: 0
+            }
+        case 'REMOVE_CART_ITEM':
+            const newStateItems = {
+                ...state.items,
+            }
+            delete newStateItems[action.payload]
+            return {
+                ...state,
+                items: newStateItems,
+                totalPrice: Object.values(newStateItems).map((el) => el.items).flat().reduce((sum, item) => item.price + sum, 0),
+                totalCount: Object.values(newStateItems).map((el) => el.items).flat().length
             }
         default: return state
     }

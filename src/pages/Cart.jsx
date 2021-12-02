@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import { CartItem } from '../componentParts';
 import { useSelector, useDispatch } from 'react-redux';
-import { clearCart } from '../redux/actions/cart'
+import { clearCart, removeCartItem } from '../redux/actions/cart'
 import emptyCartLogo from '../scss/assets/img/empty-cart.png'
 
 function Cart() {
@@ -13,6 +13,10 @@ function Cart() {
     if (window.confirm('Вы действительно хотите очистить корзину?')) {
       dispatch(clearCart())
     }
+  }
+
+  const handleDelete = (id) =>{
+    dispatch(removeCartItem(id))
   }
 
   const { totalPrice, totalCount, items } = useSelector(({ cart }) => cart)
@@ -55,6 +59,7 @@ function Cart() {
                   size={el.size}
                   totalSumm={items[el.id].totalPrice}
                   pizzaCount={items[el.id].items.length}
+                  handleDelete={handleDelete}
                 />
               )
             })}
