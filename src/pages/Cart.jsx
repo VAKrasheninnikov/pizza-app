@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import { CartItem } from '../componentParts';
 import { useSelector, useDispatch } from 'react-redux';
-import { clearCart, removeCartItem } from '../redux/actions/cart'
+import { clearCart, removeCartItem, increaseCartItem, decreaseCartItem } from '../redux/actions/cart'
 import emptyCartLogo from '../scss/assets/img/empty-cart.png'
 
 function Cart() {
@@ -19,10 +19,24 @@ function Cart() {
     dispatch(removeCartItem(id))
   }
 
+  const increase = (id) => {
+    dispatch(increaseCartItem(id))
+  }
+
+  const decrease = (id) => {
+    dispatch(decreaseCartItem(id))
+  }
+
+
   const { totalPrice, totalCount, items } = useSelector(({ cart }) => cart)
   const pizzasInCart = Object.keys(items).map((key) => {
     return items[key].items[0]
   })
+
+  const yourPay = () => {
+    window.confirm(`Оплата пока не работает, но с вас всё равно ${totalPrice}₽.`)
+  }
+ 
 
   return (
     <div className="content">
@@ -60,6 +74,8 @@ function Cart() {
                   totalSumm={items[el.id].totalPrice}
                   pizzaCount={items[el.id].items.length}
                   handleDelete={handleDelete}
+                  increase={increase}
+                  decrease={decrease}
                 />
               )
             })}
@@ -70,31 +86,29 @@ function Cart() {
               <span> Сумма заказа: <b>{totalPrice} ₽</b> </span>
             </div>
             <div className="cart__bottom-buttons">
-              <a href="/" className="button button--outline button--add go-back-btn">
+            <Link to="/">
+              <div className="button button--outline button--add go-back-btn">
                 <svg width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M7 13L1 6.93015L6.86175 1" stroke="#D3D3D3" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
-                <Link to="/" exact>
                   <span>Вернуться назад</span>
-                </Link>
-              </a>
-              <div className="button pay-btn">
+              </div>
+              </Link>
+              <div onClick={yourPay} className="button pay-btn">
                 <span>Оплатить сейчас</span>
               </div>
             </div>
           </div>
-        </div> : <div class="cart cart--empty">
-          <h2>Корзина пустая <icon>😕</icon></h2>
+        </div> : <div className="cart cart--empty">
+          <h2>Корзина пустая</h2>
           <p>
-            Вероятней всего, вы не заказывали ещё пиццу.<br />
+            Вероятней всего, вы ещё не заказывали пиццу.<br />
             Для того, чтобы заказать пиццу, перейди на главную страницу.
           </p>
           <img src={emptyCartLogo} alt="Empty cart" />
-          <a href="/" class="button button--black">
             <Link to="/">
-              <span>Вернуться назад</span>
+              <span className="button go-back-btn">Вернуться назад</span>
             </Link>
-          </a>
         </div>}
       </div>
     </div>
